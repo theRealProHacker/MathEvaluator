@@ -2,6 +2,7 @@
 Implicit does the same as explicit but internally it doesn't compute the values itself.
 Instead it only checks if the give expression is a valid mathematical expression and then just evals it.
 """
+
 import ast
 from numbers import Number
 
@@ -15,6 +16,7 @@ def calc(expr: str) -> Number:
 valid_ops = {ast.Add, ast.Sub, ast.Div, ast.Mult, ast.UAdd, ast.USub}
 
 allowed_types = {int, float}
+
 
 def is_valid(expr) -> bool:
     match expr:

@@ -1,6 +1,8 @@
-from pytest import raises
-from .explicit import calc as explicit_calc
-from .implicit import calc as implicit_calc
+from pytest import raises, main
+import ast
+import operator
+from math_evaluator.explicit import calc as explicit_calc, op_map
+from math_evaluator.implicit import calc as implicit_calc, valid_ops, allowed_types
 
 
 def calc_test(calc):
@@ -21,6 +23,20 @@ def calc_test(calc):
         with raises(SyntaxError):
             calc(error)
 
+def test_implicit_example1():
+    valid_ops.add(ast.Pow)
+
+    assert implicit_calc("4**3") == 4**3
+
+def test_implicit_example2():
+    allowed_types.add(complex)
+
+    assert implicit_calc("3*5j") == 15j
+
+def test_explicit_example1():
+    op_map[ast.BitXor] = operator.__pow__
+
+    assert explicit_calc("5^4") == 625
 
 def test():
     for calc in (explicit_calc, implicit_calc):
@@ -28,4 +44,4 @@ def test():
 
 
 if __name__ == "__main__":
-    test()
+    main()
