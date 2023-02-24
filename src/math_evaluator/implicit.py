@@ -4,10 +4,9 @@ Instead it only checks if the give expression is a valid mathematical expression
 """
 
 import ast
-from numbers import Number
 
 
-def calc(expr: str) -> Number:
+def calc(expr: str):
     if is_valid(ast.parse(expr, mode="eval").body):
         return eval(expr)
     raise SyntaxError
@@ -21,7 +20,7 @@ allowed_types = {int, float}
 def is_valid(expr) -> bool:
     match expr:
         case ast.Constant(value=value):
-            return isinstance(value, tuple(allowed_types))
+            return type(value) in allowed_types
         case ast.UnaryOp(op=op, operand=value):
             return type(op) in valid_ops and is_valid(value)
         case ast.BinOp(op=op, left=left, right=right):

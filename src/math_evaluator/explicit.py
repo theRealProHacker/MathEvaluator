@@ -3,11 +3,10 @@ Explicitly calculates valid mathematical expressions (using "+-*/" and brackets)
 """
 
 import ast
-from numbers import Number
 import operator
 
 
-def calc(expr: str) -> Number:
+def calc(expr: str):
     return compute(ast.parse(expr, mode="eval").body)
 
 
@@ -25,10 +24,10 @@ op_map = {
 allowed_types = {int, float}
 
 
-def compute(expr) -> Number:
+def compute(expr):
     match expr:
         case ast.Constant(value=value):
-            if not isinstance(value, tuple(allowed_types)):
+            if type(value) not in allowed_types:
                 raise SyntaxError(
                     f"Not a number {value!r}"
                 )

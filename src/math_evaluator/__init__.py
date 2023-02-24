@@ -1,1 +1,1 @@
-from .explicit import calc # type: ignore
+from .explicit import calc
